@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background: url(admission.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align:right;
+        }
+
+        .form-wrapper {
+            display: block;
+            justify-content: center;
+        }
+
+        form {
+            background: #fff;
+            padding: 90px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #131111;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid black;
+            border-radius: 4px;
+            box-sizing:content-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize:none;
+            height: 80px;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .error {
+            font-size: 0.9em;
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .success {
+            font-size: 1em;
+            color: green;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admission Form</h2>
+        <div class="form-wrapper">
+            <form id="admissionForm" onsubmit="return validateForm()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br>
+                <span id="nameError" class="error"></span>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="0"><br>
+                <span id="ageError" class="error"></span>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select><br>
+                <span id="genderError" class="error"></span>
+
+                <label for="course">Course:</label>
+                <select id="course" name="course">
+                    <option value="">Select a course</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                </select><br>
+                <span id="courseError" class="error"></span>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address"></textarea><br>
+                <span id="addressError" class="error"></span>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <p id="successMsg" class="success"></p>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Clear previous messages
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("ageError").innerHTML = "";
+            document.getElementById("genderError").innerHTML = "";
+            document.getElementById("courseError").innerHTML = "";
+            document.getElementById("addressError").innerHTML = "";
+            document.getElementById("successMsg").innerHTML = "";
+
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let gender = document.getElementById("gender").value;
+            let course = document.getElementById("course").value;
+            let address = document.getElementById("address").value;
+            let isValid = true;
+
+            // Name validation
+            if (name === "") {
+                document.getElementById("nameError").innerHTML = "Name is required";
+                isValid = false;
+            }
+
+            // Age validation
+            if (age === "") {
+                document.getElementById("ageError").innerHTML = "Age is required";
+                isValid = false;
+            } else if (age < 18 || age > 25) {
+                document.getElementById("ageError").innerHTML = "Please enter a valid age between 18 and 25";
+                isValid = false;
+            }
+
+            // Gender validation
+            if (gender === "") {
+                document.getElementById("genderError").innerHTML = "Gender is required";
+                isValid = false;
+            }
+
+            // Course validation
+            if (course === "") {
+                document.getElementById("courseError").innerHTML = "Course selection is required";
+                isValid = false;
+            }
+
+            // Address validation
+            if (address === "") {
+                document.getElementById("addressError").innerHTML = "Address is required";
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById("successMsg").innerHTML = "Admission form submitted successfully!";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
